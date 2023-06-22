@@ -1,6 +1,7 @@
 import React from "react";
 
 import RegNumsForm from "./RegNumsForm.jsx";
+import Errors from './Errors.jsx'
 
 function Header({onSubmit}) {
     
@@ -12,6 +13,7 @@ function Header({onSubmit}) {
                         <span>
                             <h1 id="title"> ~ Registration Numbers ~</h1>
                         </span>
+                        <Errors />
                         <br />
                         <RegNumsForm onSubmit={onSubmit} />
                     </center>
