@@ -13,12 +13,12 @@ function DropdownFilter({filterNums}) {
             <div className="d-flex justify-content-end">
                 <select onChange={handleFilter} id="dropDown">
                     <option value="ALL"> All Towns </option>
-                    <option value="CA"> Cape Town </option>
-                    <option value="CL"> Stellenbosch </option>
-                    <option value="CF"> Kuils River </option>
-                    <option value="CK"> Malmesbury </option>
-                    <option value="CJ"> Paarl </option>
-                    <option value="CY"> Bellville</option>
+                    <option value="CA"> Cape Town (CA) </option>
+                    <option value="CL"> Stellenbosch (CL) </option>
+                    <option value="CF"> Kuils River (CF) </option>
+                    <option value="CK"> Malmesbury (CK) </option>
+                    <option value="CJ"> Paarl (CJ)</option>
+                    <option value="CY"> Bellville (CY) </option>
                 </select>
                 <ClearBtn />
             </div>

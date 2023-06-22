@@ -3,39 +3,45 @@ import Header from "./components/Header.jsx";
 import RegNumberList from "./components/RegNumberList.jsx";
 
 function App() {
-    const [regNumList, setRegNumList] = useState([]);
-
     let storedRegNums = JSON.parse(localStorage.getItem("items"));
-
     if (!storedRegNums) {
         storedRegNums = [];
     }
+
+    const [regNumList, setRegNumList] = useState([]);
+
     useEffect(() => {
         setRegNumList(storedRegNums);
+        
     }, []);
 
-    // * takes the reg num as parameter and adds it to the local storage
+    const [filtered, setFiltered] = useState(storedRegNums)
+
+
     function handleSubmit(regNum) {
         const newReg = [regNum, ...regNumList];
         setRegNumList(newReg);
+        setFiltered(newReg)
         localStorage.setItem("items", JSON.stringify(newReg));
     }
 
     function filterRegNumbers(town) {
         let filteredArray = [];
         if(town == "ALL"){
-            filteredArray = regNumList ;
+            filteredArray = [...regNumList] ;
         }else{
-            regNumList.filter(function (regNum) {
-                if (regNum.startsWith(town)) {
-                    filteredArray.push(regNum);
+            regNumList.filter(function (item) {
+                let currentItem = item.toUpperCase()
+                if (currentItem.startsWith(town)) {
+                    filteredArray.push(item) ;
                 }
             });
         }
-        setRegNumList(filteredArray)
+        setFiltered(filteredArray)
+        // return filteredArray
     }
 
-
+    
     return (
         <div style={{ marginTop: "3rem" }} className="container">
             <Header onSubmit={handleSubmit} />
@@ -43,7 +49,7 @@ function App() {
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-lg-5">
-                        <RegNumberList regNums={regNumList} filterNums={filterRegNumbers} />
+                        <RegNumberList regNums={filtered} filterNums={filterRegNumbers} />
                     </div>
                     <div className="col-lg-7"></div>
                 </div>
