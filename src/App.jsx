@@ -21,6 +21,21 @@ function App() {
         localStorage.setItem("items", JSON.stringify(newReg));
     }
 
+    function filterRegNumbers(town) {
+        let filteredArray = [];
+        if(town == "ALL"){
+            filteredArray = regNumList ;
+        }else{
+            regNumList.filter(function (regNum) {
+                if (regNum.startsWith(town)) {
+                    filteredArray.push(regNum);
+                }
+            });
+        }
+        setRegNumList(filteredArray)
+    }
+
+
     return (
         <div style={{ marginTop: "3rem" }} className="container">
             <Header onSubmit={handleSubmit} />
@@ -28,7 +43,7 @@ function App() {
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-lg-5">
-                        <RegNumberList regNums={regNumList} />
+                        <RegNumberList regNums={regNumList} filterNums={filterRegNumbers} />
                     </div>
                     <div className="col-lg-7"></div>
                 </div>
