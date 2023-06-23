@@ -7,7 +7,7 @@ function App() {
     if (!storedRegNums) {
         storedRegNums = [];
     }
-
+    
     const [regNumList, setRegNumList] = useState([]);
 
     useEffect(() => {
@@ -15,48 +15,25 @@ function App() {
     }, []);
 
     const [filtered, setFiltered] = useState(storedRegNums);
+    const [errorText, setErrorText]= useState("")
+
 
     function handleSubmit(regNum) {
-        let duplicateError = document.querySelector("#duplicate-error");
-        let emptyInputError = document.querySelector("#empty-input-error");
-        let formatError = document.querySelector("#format-error");
 
         if (regNum != "") {
             const newReg = [regNum, ...regNumList];
             setRegNumList(newReg);
             setFiltered(newReg);
             localStorage.setItem("items", JSON.stringify(newReg));
-            // if (regFactory.regFormatCheck(regInput.value.replace(/\s/g, ""))) {
-            //     if (regFactory.handleDuplicates(regInput.value.toUpperCase().replace(/\s/g, ""))) {
-            //         const listItem = document.createElement("li");
+         
 
-            //         regFactory.addRegNum(regInput.value.toUpperCase().replace(/\s/g, ""));
-
-            //         listItem.textContent = registrationNumbers[registrationNumbers.length - 1];
-            //         regNumList.appendChild(listItem);
-
-            //         regNumList.insertBefore(listItem, regNumList.childNodes[0]);
-
-            //         localStorage["regNumbersList"] = regFactory.getRegistrations();
-
-            //         townCounters();
-            //     } else {
-            //         duplicateError.style.display = "block";
-            //         setTimeout(function () {
-            //             duplicateError.style.display = "none";
-            //         }, 3000);
-            //     }
-            // } else {
-            //     formatError.style.display = "block";
-            //     setTimeout(function () {
-            //         formatError.style.display = "none";
-            //     }, 3000);
-            // }
         } else {
-            emptyInputError.style.display = "block";
-            setTimeout(function () {
-                emptyInputError.style.display = "none";
-            }, 3000);
+
+            setErrorText("Input box cannot be empty") ;
+            setTimeout(function(){
+                setErrorText("") ;
+            },3000)
+             
         }
     }
 
@@ -73,12 +50,11 @@ function App() {
             });
         }
         setFiltered(filteredArray);
-        // return filteredArray
     }
 
     return (
         <div style={{ marginTop: "3rem" }} className="container">
-            <Header onSubmit={handleSubmit} />
+            <Header onSubmit={handleSubmit} error={errorText} />
 
             <div className="container">
                 <div className="row justify-content-center">
