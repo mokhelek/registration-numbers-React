@@ -7,7 +7,7 @@ function App() {
     if (!storedRegNums) {
         storedRegNums = [];
     }
-    
+
     const [regNumList, setRegNumList] = useState([]);
 
     useEffect(() => {
@@ -15,25 +15,35 @@ function App() {
     }, []);
 
     const [filtered, setFiltered] = useState(storedRegNums);
-    const [errorText, setErrorText]= useState("")
-
+    const [errorText, setErrorText] = useState("");
 
     function handleSubmit(regNum) {
+        let registrationFormat = /^[a-zA-Z]{0,3}\s*\d{3}(?:[-\s]?\d{0,3})$/;
 
         if (regNum != "") {
-            const newReg = [regNum, ...regNumList];
-            setRegNumList(newReg);
-            setFiltered(newReg);
-            localStorage.setItem("items", JSON.stringify(newReg));
-         
-
+            if (registrationFormat.test(regNum)) {
+                if (!regNumList.includes(regNum)) {
+                    const newReg = [regNum, ...regNumList];
+                    setRegNumList(newReg);
+                    setFiltered(newReg);
+                    localStorage.setItem("items", JSON.stringify(newReg));
+                } else {
+                    setErrorText("Registration number has already been added");
+                    setTimeout(function () {
+                        setErrorText("");
+                    }, 3000);
+                }
+            } else {
+                setErrorText("invalid registration number format");
+                setTimeout(function () {
+                    setErrorText("");
+                }, 3000);
+            }
         } else {
-
-            setErrorText("Input box cannot be empty") ;
-            setTimeout(function(){
-                setErrorText("") ;
-            },3000)
-             
+            setErrorText("Input box cannot be empty");
+            setTimeout(function () {
+                setErrorText("");
+            }, 3000);
         }
     }
 
