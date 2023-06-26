@@ -5,7 +5,7 @@ import EmptyList from "./EmptyList.jsx";
 
 
 function RegNumber({regNums , filterNums}) {
-   console.log(regNums)
+
     return (
         <div>
             <div style={{ height: "500px", overflowY: "scroll" }}>

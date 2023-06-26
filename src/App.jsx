@@ -23,11 +23,19 @@ function App() {
         if (regNum != "") {
             if (registrationFormat.test(regNum)) {
                 if (!regNumList.includes(regNum)) {
-                    const newReg = [regNum, ...regNumList];
-                    setRegNumList(newReg);
-                    setFiltered(newReg);
-                    localStorage.setItem("items", JSON.stringify(newReg));
-                    handleTownCount(regNum);
+                    let newRegNum = regNum.toUpperCase() ;
+                    if (newRegNum.startsWith("CA") || newRegNum.startsWith("CL") || newRegNum.startsWith("CJ") || newRegNum.startsWith("CK") || newRegNum.startsWith("CF") || newRegNum.startsWith("CY")) {
+                        const newReg = [regNum, ...regNumList];
+                        setRegNumList(newReg);
+                        setFiltered(newReg);
+                        localStorage.setItem("items", JSON.stringify(newReg));
+                        handleTownCount(regNum);
+                    } else {
+                        setErrorText("Unknown location Registration");
+                        setTimeout(function () {
+                            setErrorText("");
+                        }, 3000);
+                    }
                 } else {
                     setErrorText("Registration number has already been added");
                     setTimeout(function () {
@@ -50,11 +58,11 @@ function App() {
 
     let storedTownCount = {
         "Cape Town": 0,
-        "Stellenbosch" : 0,
-        "Bellville" : 0,
-        "Paarl" : 0,
+        Stellenbosch: 0,
+        Bellville: 0,
+        Paarl: 0,
         "Kuils River": 0,
-        "Malmesbury": 0,
+        Malmesbury: 0,
     };
 
     if (localStorage["townCountStored"]) {
