@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Header from "./components/Header.jsx";
 import RegNumberList from "./components/RegNumberList.jsx";
+import TownCards from "./components/TownCards.jsx";
 
 function App() {
     let storedRegNums = JSON.parse(localStorage.getItem("items"));
@@ -9,7 +10,6 @@ function App() {
     }
 
     const [regNumList, setRegNumList] = useState([]);
-
     useEffect(() => {
         setRegNumList(storedRegNums);
     }, []);
@@ -27,6 +27,7 @@ function App() {
                     setRegNumList(newReg);
                     setFiltered(newReg);
                     localStorage.setItem("items", JSON.stringify(newReg));
+                    handleTownCount(regNum);
                 } else {
                     setErrorText("Registration number has already been added");
                     setTimeout(function () {
@@ -45,6 +46,47 @@ function App() {
                 setErrorText("");
             }, 3000);
         }
+    }
+
+    let storedTownCount = {
+        "Cape Town": 0,
+        "Stellenbosch" : 0,
+        "Bellville" : 0,
+        "Paarl" : 0,
+        "Kuils River": 0,
+        "Malmesbury": 0,
+    };
+
+    if (localStorage["townCountStored"]) {
+        storedTownCount = JSON.parse(localStorage["townCountStored"]);
+    }
+
+    const [townCount, setTownCount] = useState(storedTownCount);
+    useEffect(() => {
+        setTownCount(storedTownCount);
+    }, []);
+
+    function handleTownCount(regNum) {
+        let currentCount = { ...townCount }; // ? Copy of the state.
+
+        let currentItem = regNum.toUpperCase();
+
+        if (currentItem.startsWith("CA")) {
+            currentCount["Cape Town"]++;
+        } else if (currentItem.startsWith("CK")) {
+            currentCount["Malmesbury"]++;
+        } else if (currentItem.startsWith("CL")) {
+            currentCount["Stellenbosch"]++;
+        } else if (currentItem.startsWith("CF")) {
+            currentCount["Kuils River"]++;
+        } else if (currentItem.startsWith("CJ")) {
+            currentCount["Paarl"]++;
+        } else if (currentItem.startsWith("CY")) {
+            currentCount["Bellville"]++;
+        }
+
+        setTownCount(currentCount);
+        localStorage["townCountStored"] = JSON.stringify(currentCount);
     }
 
     function filterRegNumbers(town) {
@@ -71,7 +113,9 @@ function App() {
                     <div className="col-lg-5">
                         <RegNumberList regNums={filtered} filterNums={filterRegNumbers} />
                     </div>
-                    <div className="col-lg-7"></div>
+                    <div className="col-lg-7">
+                        <TownCards townStats={townCount} />
+                    </div>
                 </div>
             </div>
         </div>

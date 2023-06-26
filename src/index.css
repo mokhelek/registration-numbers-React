@@ -109,3 +109,7 @@ select{
     color:rgb(255, 103, 32) !important;
     border: 1px rgb(241, 152, 9) solid !important;
 }
+
+.place-card{
+    margin-bottom: 0.7rem;
+}
