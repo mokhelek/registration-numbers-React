@@ -1,10 +1,12 @@
 import React from "react";
 
 function ClearBtn() {
-
+    
     function clearData() {
-        localStorage.clear();
-        location.reload();
+        if (confirm("Your data will be permanently deleted")) {
+            localStorage.clear();
+            location.reload();
+        }
     }
 
     return (
