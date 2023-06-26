@@ -105,7 +105,7 @@ function App() {
     }
 
     return (
-        <div style={{ marginTop: "3rem" }} className="container">
+        <div style={{ marginTop: "0rem" }} className="">
             <Header onSubmit={handleSubmit} error={errorText} />
 
             <div className="container">
