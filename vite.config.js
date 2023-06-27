@@ -8,7 +8,7 @@ export default defineConfig({
 })
 
 if (command !== 'serve') {
-  config.base = '/react-vite-gh-pages/'
+  config.base = '/registration-numbers/'
 }
 
 return config ;
