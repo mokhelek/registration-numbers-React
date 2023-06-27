@@ -4,6 +4,8 @@ import RegNumberList from "./components/RegNumberList.jsx";
 import TownCards from "./components/TownCards.jsx";
 
 function App() {
+
+
     let storedRegNums = JSON.parse(localStorage.getItem("items"));
     if (!storedRegNums) {
         storedRegNums = [];
