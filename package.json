@@ -1,5 +1,5 @@
 {
-  
+  "homepage":"https://mokhelek.github.io/registration-numbers-React/",
   "name": "registration-numbers",
   "private": true,
   "version": "0.0.0",
@@ -7,6 +7,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
